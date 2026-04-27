@@ -3,13 +3,14 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { recipesApi, ingredientsApi, versionsApi } from '../services/api'
 import type { RecipeDetail } from '../types'
-import { UNITS, CATEGORIES } from '../types'
+import { UNITS, UNIT_LABELS, CATEGORIES } from '../types'
 
 interface FormData {
   title: string
   description: string
   cuisine: string
   category: string
+  isPublic: boolean
   changeNote: string
   ingredients: { name: string; quantity: number; unit: string; pricePerUnit: number | ''; sortOrder: number }[]
 }
@@ -32,6 +33,7 @@ export function RecipeFormPage() {
       description: '',
       cuisine: '',
       category: '',
+      isPublic: true,
       changeNote: '',
       ingredients: [{ name: '', quantity: 1, unit: 'g', pricePerUnit: '', sortOrder: 0 }],
     },
@@ -47,6 +49,7 @@ export function RecipeFormPage() {
         description: r.description ?? '',
         cuisine: r.cuisine ?? '',
         category: r.category ?? '',
+        isPublic: r.isPublic,
         changeNote: '',
         ingredients: r.ingredients.map((i) => ({
           name: i.name,
@@ -70,7 +73,7 @@ export function RecipeFormPage() {
         cuisine: data.cuisine || undefined,
         category: data.category || undefined,
         dietTags: [],
-        isPublic: false,
+        isPublic: data.isPublic,
       }
 
       let recipeId: string
@@ -142,6 +145,18 @@ export function RecipeFormPage() {
             />
           </div>
 
+          <label className="flex items-center gap-3 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              {...register('isPublic')}
+              className="w-4 h-4 accent-green-600 rounded"
+            />
+            <div>
+              <span className="text-sm font-medium text-gray-700">Publikt recept</span>
+              <p className="text-xs text-gray-400">Alla inloggade användare kan se detta recept</p>
+            </div>
+          </label>
+
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className={labelCls}>Kategori</label>
@@ -189,7 +204,7 @@ export function RecipeFormPage() {
                 {...register(`ingredients.${i}.unit`)}
                 className="border border-gray-200 rounded-xl px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
               >
-                {UNITS.map((u) => <option key={u} value={u}>{u}</option>)}
+                {UNITS.map((u) => <option key={u} value={u}>{UNIT_LABELS[u] ?? u}</option>)}
               </select>
               <input
                 type="number"

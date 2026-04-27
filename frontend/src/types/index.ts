@@ -107,7 +107,19 @@ export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   expert: 'Expert',
 }
 
-export const UNITS = ['g', 'kg', 'ml', 'l', 'tsp', 'tbsp', 'cup', 'fl_oz', 'oz', 'lb', 'pcs'] as const
+export const UNITS = ['g', 'kg', 'ml', 'dl', 'l', 'tsk', 'msk', 'krm', 'st'] as const
+
+export const UNIT_LABELS: Record<string, string> = {
+  g: 'gram (g)',
+  kg: 'kilogram (kg)',
+  ml: 'milliliter (ml)',
+  dl: 'deciliter (dl)',
+  l: 'liter (l)',
+  tsk: 'tesked (tsk)',
+  msk: 'matsked (msk)',
+  krm: 'kryddmått (krm)',
+  st: 'styck (st)',
+}
 
 export const CATEGORIES = [
   'förrätt', 'huvudrätt', 'dessert', 'tillbehör', 'övrigt',
