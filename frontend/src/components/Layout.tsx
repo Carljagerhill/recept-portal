@@ -21,7 +21,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <span className="text-green-600 text-xl">🍴</span>
-            <span className="text-lg font-bold text-gray-900 tracking-tight">Arvids Receptportal</span>
+            <span className="text-lg font-bold text-gray-900 tracking-tight">Receptbank</span>
           </Link>
 
           <div className="flex items-center gap-6">
